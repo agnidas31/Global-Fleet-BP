@@ -4,7 +4,7 @@ Field-Tested Innovation · Global Fleet Cards · bp
 
 How three regions that measured "the same" fleet business in three different ways were brought into one trusted, comparable view.
 
-Agnivesh Das · Senior Data Analytics Engineer · bp
+Agnivesh Das · Data Analyst · bp
 
 > **Note:** the structure, regions and definitions reflect how the report worked. All values are illustrative, not real production figures.
 
@@ -12,7 +12,7 @@ Agnivesh Das · Senior Data Analytics Engineer · bp
 
 ## My Role
 
-As Senior Data Analytics Engineer, I owned the data behind the report end to end:
+As Data Analyst, I owned the data behind the report end to end:
 
 - **Data preparation.** Brought in fleet card volume, margin, card and customer data from three regional systems (ESA, ANZ and the US).
 - **Cleaning and transformation.** Standardised each region's data into one model, documented each KPI's definition per region, and built the KPI validation checks.
@@ -115,6 +115,10 @@ Comparing raw volumes would suggest ESA is ten times the size of the US, but the
 ---
 
 ## Impact
+
+**85% less report preparation:** the monthly cross-region pack no longer had to be assembled by hand.
+
+**3× faster decisions:** fleet managers got their answers from one trusted view.
 
 **3 regions, 1 report:** ESA, ANZ and the US on a single page.
 
