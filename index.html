@@ -3,295 +3,405 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Global Fleet KPI Report · Agnivesh Das</title>
-<meta name="description" content="How three regions that measured &#34;the same&#34; fleet business in three different ways were brought into one trusted, comparable view.">
-<meta property="og:title" content="The Global Fleet KPI Report · Agnivesh Das">
-<meta property="og:description" content="How three regions that measured &#34;the same&#34; fleet business in three different ways were brought into one trusted, comparable view.">
+<title>Global Fleet KPI Report · Agnivesh Das</title>
+<meta name="description" content="Three regions measuring “the same” fleet business three different ways, brought into one trusted, comparable view.">
+<meta property="og:title" content="Global Fleet KPI Report · Agnivesh Das">
+<meta property="og:description" content="Three regions measuring “the same” fleet business three different ways, brought into one trusted, comparable view.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #17202b; --muted: #556070; --faint: #8a94a2; --rule: #dde3ea;
-    --bg: #ffffff; --bg-soft: #f7f8fa; --accent: #b4541a; --accent-soft: #fbede3; --navy: #172340;
+    --navy: #172340; --ink: #1b2230; --muted: #5a6679; --faint: #8b95a6; --rule: #e4e7ed;
+    --bg: #fff; --bg-soft: #f7f8fa; --accent: #b4541a; --accent-ink: #8f4214; --accent-soft: #fbede3;
+    --accent-bright: #f0a36c; --c1: #2f5597; --ok: #1d7a4f; --warn: #a15c00; --no: #a8322d;
+    --radius: 12px; --max: 1140px;
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 17px; line-height: 1.7;
-  }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; }
   a { color: var(--accent); }
-  .top { border-bottom: 1px solid var(--rule); background: #fff; position: sticky; top: 0; z-index: 5; }
-  .top .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; gap: 12px; }
-  .top a { text-decoration: none; font-weight: 600; font-size: 14px; }
-  .brand { font-family: "Source Serif 4", Georgia, serif; font-size: 18px; color: var(--ink); }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-  .tabs { display: flex; gap: 8px; margin: 28px 0 0; flex-wrap: wrap; }
-  .tabs a { padding: 6px 14px; border-radius: 99px; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; }
-  .tabs a.on { background: var(--navy); border-color: var(--navy); color: #fff; }
-  article { padding: 18px 0 60px; }
-  article > p:first-child { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: 1.1px; text-transform: uppercase; margin-bottom: 0; }
-  h1 { color: var(--navy); font-family: "Source Serif 4", Georgia, serif; font-size: clamp(32px, 5vw, 46px); line-height: 1.12; margin: 8px 0 16px; }
-  h1 + p { font-size: 20px; color: var(--ink); }
-  h2 { color: var(--navy); font-family: "Source Serif 4", Georgia, serif; font-size: 28px; margin: 48px 0 6px; padding-top: 10px; }
-  h3 { font-size: 19px; margin: 10px 0 14px; color: var(--muted); font-weight: 600; }
-  h4 { font-size: 17px; margin: 22px 0 6px; }
-  p, li { color: #2b3542; }
-  hr { border: 0; border-top: 1px solid var(--rule); margin: 40px 0 8px; }
-  blockquote {
-    margin: 22px 0; padding: 14px 18px; background: var(--accent-soft); border-left: 4px solid var(--accent);
-    border-radius: 0 8px 8px 0;
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 22px; }
+  .serif, h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; }
+
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 30; }
+  .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 14px; }
+  .brand { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; font-size: 19px; color: var(--navy); text-decoration: none; white-space: nowrap; }
+  .nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; align-items: center; }
+  .nav ul a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+  .nav ul a:hover { color: var(--navy); }
+  .nav .pill { background: var(--navy); color: #fff !important; padding: 7px 13px; border-radius: 8px; }
+
+  .hero { position: relative; background: var(--navy); color: #fff; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0;
+    background: radial-gradient(600px 320px at 88% 0%, rgba(240,163,108,.18), transparent 70%), radial-gradient(500px 300px at 0% 100%, rgba(255,255,255,.06), transparent 70%); }
+  .hero .wrap { position: relative; padding-top: 64px; padding-bottom: 56px; }
+  .eyebrow { color: var(--accent-bright); font-weight: 600; font-size: 13px; letter-spacing: 1.3px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.04; margin: 10px 0 16px; }
+  .hero .hook { font-size: clamp(18px, 2.2vw, 22px); max-width: 800px; margin: 0 0 18px; color: #e8ecf4; }
+  .byline { color: #b9c3d6; font-size: 14.5px; }
+  .byline b { color: #fff; font-weight: 600; }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .stack span { font-size: 12.5px; border: 1px solid rgba(255,255,255,.25); color: #dfe5ef; padding: 3px 10px; border-radius: 99px; }
+  .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+  .results div { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 16px 18px; }
+  .results b { display: block; font-family: "Source Serif 4", Georgia, serif; font-size: 34px; line-height: 1.05; }
+  .results span { color: #c6cfdf; font-size: 14px; }
+  .results-note { color: #8f9ab0; font-size: 12.5px; margin-top: 10px; }
+
+  .banner { background: var(--accent-soft); border-bottom: 1px solid #f1d6c3; color: var(--accent-ink); font-size: 14px; }
+  .banner .wrap { padding-top: 10px; padding-bottom: 10px; }
+
+  section { padding: 72px 0; }
+  section.soft { background: var(--bg-soft); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .kicker { display: flex; align-items: center; gap: 10px; color: var(--accent); font-weight: 700; font-size: 12.5px; letter-spacing: 1.3px; text-transform: uppercase; margin: 0 0 8px; }
+  .kicker .n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 12px; letter-spacing: 0; }
+  h2 { font-size: clamp(27px, 3.6vw, 38px); line-height: 1.15; margin: 0 0 10px; color: var(--navy); }
+  .sub { color: var(--muted); margin: 0 0 30px; max-width: 780px; font-size: 17px; }
+  .card { background: #fff; border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px; }
+  .card h3 { margin: 0 0 4px; font-size: 19px; color: var(--navy); }
+  .card .csub { color: var(--muted); font-size: 13.5px; margin: 0 0 16px; }
+
+  /* Problem */
+  .prob { display: grid; grid-template-columns: 1.35fr 1fr; gap: 22px; align-items: start; }
+  .points { display: grid; gap: 12px; }
+  .point { border-left: 4px solid var(--accent); background: #fff; border-radius: 0 10px 10px 0; padding: 14px 16px; border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .point b { display: block; color: var(--navy); margin-bottom: 2px; }
+  .point p { margin: 0; color: var(--muted); font-size: 15px; }
+  .srcs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .src { border: 1px solid var(--rule); border-radius: 10px; padding: 14px; background: var(--bg-soft); }
+  .src b { display: block; color: var(--navy); font-size: 16px; }
+  .src em { display: block; font-style: normal; color: var(--accent); font-size: 12.5px; font-weight: 600; margin-bottom: 8px; }
+  .src dl { margin: 0; }
+  .src dl div { padding: 6px 0; border-top: 1px dashed var(--rule); }
+  .src dt { font-size: 11.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--faint); }
+  .src dd { margin: 0; font-size: 14px; color: var(--ink); }
+  .nokey { margin-top: 12px; display: flex; align-items: center; gap: 10px; border: 1.5px dashed #d9a98a; border-radius: 10px; padding: 10px 14px; color: var(--accent-ink); font-weight: 600; font-size: 14.5px; background: #fffaf6; }
+  .nokey span { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; flex: none; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .pair h4 { margin: 0 0 8px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+  .onenum { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+  .onenum .big { background: var(--navy); color: #fff; border-radius: 10px; padding: 18px; font: 700 54px/1 "Source Serif 4", Georgia, serif; }
+  .onenum .big small { display: block; font: 500 13px "Inter", sans-serif; color: #b9c3d6; margin-bottom: 10px; }
+  .onenum .big span { font-size: 20px; color: #c6cfdf; }
+  .onenum .big em { display: block; font: 600 14px "Inter", sans-serif; color: var(--accent-bright); margin-top: 12px; }
+  .onenum .why { display: flex; flex-direction: column; gap: 6px; }
+  .onenum .why b { color: var(--navy); }
+  .onenum .why span { border: 1px dashed #c9cfd9; border-radius: 8px; padding: 5px 10px; font-size: 14px; color: var(--muted); }
+
+  /* Approach */
+  .steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; counter-reset: s; margin-bottom: 22px; }
+  .step { position: relative; background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 14px 14px 16px; }
+  .step::before { counter-increment: s; content: counter(s); display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; }
+  .step:not(:last-child)::after { content: ""; position: absolute; right: -9px; top: 24px; width: 8px; height: 2px; background: var(--accent); }
+  .step b { display: block; color: var(--navy); margin: 8px 0 4px; font-size: 15.5px; }
+  .step p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+  .formula { background: var(--navy); color: #fff; border-radius: 10px; padding: 14px 18px; font-size: 15.5px; margin-bottom: 14px; }
+  .formula div { padding: 3px 0; }
+  .formula b { color: var(--accent-bright); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span { background: var(--accent-soft); color: var(--accent-ink); padding: 5px 12px; border-radius: 99px; font-size: 14px; font-weight: 500; }
+  .tbl { overflow-x: auto; }
+  .tbl table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .tbl th, .tbl td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); }
+  .tbl th { background: var(--bg-soft); font-weight: 600; font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .st { font-weight: 600; font-size: 13.5px; white-space: nowrap; }
+  .st.ok { color: var(--ok); } .st.warn { color: var(--warn); } .st.no { color: var(--no); }
+
+  /* Contribution */
+  .contrib { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .contrib .card { border-top: 4px solid var(--accent); }
+  .contrib .lab { font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .contrib h3 { margin: 4px 0 8px; }
+  .contrib p { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+  .contrib .chips span { font-size: 12.5px; padding: 3px 10px; background: var(--bg-soft); color: var(--ink); border: 1px solid var(--rule); }
+
+  /* Output: dashboard frame */
+  .dash { border: 1px solid #cfd5df; border-radius: 14px; overflow: hidden; background: #eef1f5; box-shadow: 0 18px 40px rgba(23,35,64,.08); }
+  .dash-bar { display: flex; align-items: center; gap: 8px; background: var(--navy); color: #c6cfdf; font-size: 13px; padding: 10px 14px; }
+  .dash-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .dash-bar span { margin-left: 8px; } .dash-bar em { margin-left: auto; font-style: normal; color: var(--accent-bright); font-weight: 600; }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px; }
+  .panels .card { padding: 18px; }
+  .panels .wide { grid-column: 1 / -1; }
+  .panels > *, .prob > *, .pair > *, .onenum > * { min-width: 0; }
+
+  /* Charts */
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .hb { position: relative; display: grid; gap: 8px; }
+  .hb-row, .db-row { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; align-items: center; gap: 10px; font-size: 13.5px; }
+  .hb-l { color: var(--ink); line-height: 1.25; }
+  .hb-v { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 44px; text-align: right; }
+  .hb-t { display: flex; gap: 2px; height: 16px; }
+  .hb-t i, .db-t i, .col i, .wf-c i, .dot { cursor: default; outline: none; }
+  .hb-t i { display: block; height: 100%; border-radius: 0 4px 4px 0; transition: opacity .15s; }
+  .hb-t.stack i { border-radius: 0; } .hb-t.stack i:last-child { border-radius: 0 4px 4px 0; }
+  .hb-ref { position: absolute; top: -4px; bottom: -4px; left: calc(min(38%, 100%) + 10px); right: 54px; pointer-events: none; }
+  .hb-ref::before { content: ""; position: absolute; left: var(--x); top: 0; bottom: 0; border-left: 1.5px dashed var(--navy); }
+  .hb-ref span { position: absolute; left: var(--x); bottom: -20px; transform: translateX(-50%); font-size: 11.5px; color: var(--navy); font-weight: 600; white-space: nowrap; }
+  .hb:has(.hb-ref) { margin-bottom: 22px; }
+  .db { display: grid; gap: 8px; }
+  .db-t { position: relative; height: 16px; }
+  .db-t::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; border-left: 1.5px solid #9aa3b2; }
+  .db-t i { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+  .db-row.hl .hb-l, .db-row.hl .hb-v { font-weight: 700; color: var(--navy); }
+  .cols { display: flex; align-items: flex-end; gap: 6px; height: var(--h); border-bottom: 1.5px solid #9aa3b2; }
+  .col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  .col i { display: block; width: 100%; max-width: 72px; border-radius: 4px 4px 0 0; }
+  .cv { font-size: 12px; color: var(--muted); margin-bottom: 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cols-x { display: flex; gap: 6px; margin-top: 6px; }
+  .cols-x span { flex: 1; text-align: center; font-size: 12px; color: var(--muted); line-height: 1.25; }
+  .sx { overflow-x: auto; scrollbar-width: thin; }
+  .cols-x span.tot { font-weight: 700; color: var(--navy); }
+  .wf { position: relative; display: flex; gap: 6px; height: var(--h); border-bottom: 1.5px solid #9aa3b2; margin-top: 18px; }
+  .wf-c { flex: 1; position: relative; height: 100%; }
+  .wf-c i { position: absolute; left: 8%; right: 8%; border-radius: 4px; }
+  .wf-c i span { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 3px; font-size: 12px; color: var(--ink); font-weight: 600; white-space: nowrap; font-style: normal; }
+  .lc { height: var(--h); padding: 6px 10px 26px 44px; }
+  .plot { position: relative; height: 100%; }
+  .plot svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .gl { position: absolute; left: 0; right: 0; border-top: 1px solid #edf0f4; }
+  .gl span { position: absolute; right: calc(100% + 8px); top: -9px; font-size: 11.5px; color: var(--faint); white-space: nowrap; }
+  .vl { position: absolute; top: -4px; bottom: 0; border-left: 1.5px dashed var(--navy); }
+  .vl span { position: absolute; top: -2px; left: 6px; font-size: 11.5px; font-weight: 600; color: var(--navy); white-space: nowrap; background: rgba(255,255,255,.85); padding: 0 3px; }
+  .dot { position: absolute; width: 9px; height: 9px; border-radius: 50%; transform: translate(-50%, 50%); box-shadow: 0 0 0 2px #fff; }
+  .dot::after { content: ""; position: absolute; inset: -8px; }
+  .xl { position: absolute; top: calc(100% + 6px); transform: translateX(-50%); font-size: 11.5px; color: var(--faint); white-space: nowrap; }
+  [data-tip]:hover, [data-tip]:focus { filter: brightness(1.12); }
+  #tip { position: fixed; z-index: 50; pointer-events: none; background: var(--navy); color: #fff; font-size: 13px; padding: 6px 10px; border-radius: 7px; box-shadow: 0 6px 18px rgba(0,0,0,.18); opacity: 0; transition: opacity .1s; max-width: 260px; }
+  .dt { margin-top: 12px; font-size: 13px; }
+  .dt summary { cursor: pointer; color: var(--faint); }
+  .dt table { margin-top: 8px; border-collapse: collapse; width: 100%; }
+  .dt th, .dt td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--rule); }
+  .readout p { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+  .readout b { color: var(--navy); }
+  .readout .calc { font-family: ui-monospace, Menlo, monospace; background: var(--bg-soft); padding: 8px 10px; border-radius: 6px; color: var(--ink); font-size: 13.5px; }
+
+  /* Impact */
+  .impact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .icard { background: #fff; border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; }
+  .icard .m { font: 700 34px/1.05 "Source Serif 4", Georgia, serif; color: var(--navy); }
+  .icard .l { font-weight: 700; margin-top: 6px; }
+  .icard .d { color: var(--muted); font-size: 14.5px; margin-top: 8px; line-height: 1.5; }
+  .ba { margin-top: 26px; border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .ba-row { display: grid; grid-template-columns: 1fr 1.3fr 28px 1.5fr; gap: 12px; align-items: center; padding: 12px 18px; border-top: 1px solid var(--rule); font-size: 15px; }
+  .ba-row:first-child { border-top: 0; background: var(--bg-soft); font-size: 12.5px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 600; }
+  .ba-row .k { font-weight: 600; color: var(--navy); }
+  .ba-row .b { color: var(--muted); text-decoration: line-through; text-decoration-color: #c9cfd9; }
+  .ba-row .ar { color: var(--accent); font-weight: 700; text-align: center; }
+  .ba-row .a { color: var(--ink); font-weight: 500; }
+  .closing { margin: 30px 0 0; font: 600 clamp(20px, 2.6vw, 26px)/1.35 "Source Serif 4", Georgia, serif; color: var(--navy); border-left: 4px solid var(--accent); padding-left: 18px; }
+
+  .more { background: var(--navy); color: #fff; }
+  .more .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; padding-top: 44px; padding-bottom: 44px; }
+  .more h2 { color: #fff; margin: 0; font-size: 28px; }
+  .more p { margin: 4px 0 0; color: #b9c3d6; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; padding: 11px 18px; border-radius: 9px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid rgba(255,255,255,.35); color: #fff; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); }
+  .btn:hover { filter: brightness(1.08); }
+  .foot { padding: 24px 0 36px; color: var(--faint); font-size: 13.5px; }
+  .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 980px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .step::after { display: none; }
+    .impact { grid-template-columns: repeat(2, 1fr); }
+    .prob { grid-template-columns: 1fr; }
+    .nav ul li.sec { display: none; }
   }
-  blockquote p { margin: 6px 0; }
-  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; display: block; overflow-x: auto; }
-  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-  th { background: var(--bg-soft); font-weight: 600; white-space: nowrap; }
-  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 14px; background: var(--bg-soft); padding: 2px 5px; border-radius: 4px; }
-  pre { background: #0f1a22; color: #e6edf3; padding: 16px 18px; border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.55; }
-  pre code { background: none; padding: 0; color: inherit; }
-  .foot { border-top: 1px solid var(--rule); padding: 26px 0 40px; color: var(--faint); font-size: 14px; }
-  .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    section { padding: 52px 0; }
+    .wrap { padding: 0 16px; }
+    .results, .contrib, .panels, .pair, .onenum { grid-template-columns: 1fr; }
+    .srcs { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .panels { padding: 10px; gap: 10px; }
+    .panels .card { padding: 14px; }
+    .ba-row { grid-template-columns: 1fr; gap: 2px; }
+    .ba-row:first-child { display: none; }
+    .ba-row .ar { display: none; }
+    .ba-row .b::before { content: "Before: "; text-decoration: none; display: inline; }
+    .ba-row .a::before { content: "After: "; color: var(--accent); font-weight: 600; }
+    .nav ul li.cs { display: none; }
+    .dash-bar span { display: none; }
+    .sx-in { min-width: calc(var(--n) * 74px); padding-bottom: 4px; }
+    .tbl td:first-child { white-space: nowrap; }
+  }
+  @media (max-width: 420px) {
+    .impact, .steps { grid-template-columns: 1fr; }
+    .hb-row, .db-row { grid-template-columns: 34% 1fr auto; gap: 8px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
-<div class="top">
+<div id="progress"></div>
+<div id="tip" role="status"></div>
+<nav class="nav">
   <div class="wrap">
     <a class="brand" href="https://agnidas31.github.io/Agnivesh-Das/">Agnivesh Das</a>
-    <a href="https://agnidas31.github.io/Agnivesh-Das/#work">← All work</a>
+    <ul>
+      <li class="sec"><a href="#problem">Problem</a></li>
+      <li class="sec"><a href="#approach">Approach</a></li>
+      <li class="sec"><a href="#role">My role</a></li>
+      <li class="sec"><a href="#output">Output</a></li>
+      <li class="sec"><a href="#impact">Impact</a></li>
+      <li class="cs"><a href="story.html">Full case study</a></li>
+      <li><a class="pill" href="https://agnidas31.github.io/Agnivesh-Das/#work">← All work</a></li>
+    </ul>
   </div>
-</div>
-<div class="wrap">
-  
-  <article><p>Case Study · Global Fleet Cards · bp</p>
-<h1>The Global Fleet KPI Report</h1>
-<p>How three regions that measured "the same" fleet business in three different ways were brought into one trusted, comparable view.</p>
-<p>Agnivesh Das · Data Analyst · bp</p>
-<blockquote>
-<p><strong>Note:</strong> the structure, regions and definitions reflect how the report worked. All values are illustrative, not real production figures.</p>
-</blockquote>
-<hr />
-<h2>My Role</h2>
-<p>As Data Analyst, I owned the data behind the report end to end:</p>
-<ul>
-<li><strong>Data preparation.</strong> Brought in fleet card volume, margin, card and customer data from three regional systems (ESA, ANZ and the US).</li>
-<li><strong>Cleaning and transformation.</strong> Standardised each region's data into one model, documented each KPI's definition per region, and built the KPI validation checks.</li>
-<li><strong>Reporting.</strong> Built the Power BI report: global summary, by-region views, a definitions page, and a KPI validation page.</li>
-</ul>
-<hr />
-<h2>The Problem</h2>
-<h3>One global business, three local scoreboards</h3>
-<p>bp's fleet card business serves companies whose drivers fill up using a bp fleet card. It operates in several regions, each with its own systems, history and way of reporting.</p>
-<p>Leadership wanted to answer simple questions:</p>
-<ul>
-<li>How is fleet volume trending in each region?</li>
-<li>How much margin is the business contributing?</li>
-<li>How many active cards and customers do we have, and is that growing?</li>
-</ul>
-<p>But every region produced its own numbers in its own format. Comparing them meant pulling separate reports and hoping they meant the same thing.</p>
-<hr />
-<h2>The Constraint Nobody Was Naming</h2>
-<h3>The same KPI meant different things in each region</h3>
-<p>The hard part wasn't building charts. It was that the regions didn't agree on what the numbers meant:</p>
-<p><strong>1. Different units.</strong> ANZ and ESA measure volume in <strong>litres</strong> and margin in <strong>cents per litre</strong>. The US uses <strong>gallons</strong> and <strong>cents per gallon</strong>.</p>
-<p><strong>2. Different definitions of margin.</strong> In ANZ, fleet contribution comes from the site margin waterfall plus card margin, minus site and card costs. In ESA, it's card contribution margin in local currency. In the US, it's average site margin applied to card volume, minus the cost of card offers.</p>
-<p><strong>3. Different definitions of volume.</strong> Some regions count only bp-branded cards. Others include partner networks and third-party cards, split into "issued and supplied", "supplied not issued" and "issued not supplied".</p>
-<p><strong>4. Different time windows.</strong> "Active cards" could mean active this month, or active over a rolling three months.</p>
-<p>Putting these numbers side by side without addressing this would have produced a report that <em>looked</em> comparable but wasn't.</p>
-<hr />
-<h2>The Fix</h2>
-<h3>A common model, regional definitions made explicit, and validation built in</h3>
-<p>Rather than forcing every region into one artificial definition, the report:</p>
-<ol>
-<li><strong>Standardised the structure.</strong> Every region's data was mapped into the same model: region, month, volume, contribution margin, active cards, active customers.</li>
-<li><strong>Kept regional definitions, but made them visible.</strong> A definitions page documents exactly what each KPI means in each region: unit, scope and calculation.</li>
-<li><strong>Compared like with like.</strong> Cross-region comparisons use <strong>trends and year-on-year change</strong>, which are meaningful even when units differ, rather than raw totals.</li>
-<li><strong>Validated every refresh.</strong> A KPI validation page checks each region's figures against source before the report is trusted.</li>
-</ol>
-<h3>KPI set</h3>
-<table>
-<thead>
-<tr>
-<th>KPI</th>
-<th>Definition (summary)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Fleet volume</strong></td>
-<td>Fuel sold to fleet customers on bp and eligible third-party cards (litres or gallons by region)</td>
-</tr>
-<tr>
-<td><strong>Fleet contribution margin</strong></td>
-<td>Region-specific margin definition, in $ and cents per litre/gallon</td>
-</tr>
-<tr>
-<td><strong>Active cards</strong></td>
-<td>Cards that transacted in the month, and on a rolling 3-month basis</td>
-</tr>
-<tr>
-<td><strong>Active customers</strong></td>
-<td>Customers that transacted in the month, and on a rolling 3-month basis</td>
-</tr>
-<tr>
-<td><strong>Average volume per card</strong></td>
-<td>Total volume ÷ number of fleet cards</td>
-</tr>
-<tr>
-<td><strong>Fleet share of volume</strong></td>
-<td>Fleet volume ÷ total retail volume</td>
-</tr>
-</tbody>
-</table>
-<h3>How it works</h3>
-<ol>
-<li><strong>Ingest:</strong> Monthly extracts from each region's fleet system.</li>
-<li><strong>Standardise:</strong> Map to one common data model, with region, unit and currency carried as attributes.</li>
-<li><strong>Calculate:</strong> Compute KPIs per region using that region's documented definition.</li>
-<li><strong>Validate:</strong> Reconcile against each region's own reporting.</li>
-<li><strong>Report:</strong> Global summary, by-region detail, monthly and year-to-month comparisons.</li>
-</ol>
-<hr />
-<h2>Worked Example</h2>
-<h3>Why year-on-year matters more than totals</h3>
-<blockquote>
-<p><strong>Illustrative values only.</strong></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Region</th>
-<th>Monthly volume</th>
-<th>Unit</th>
-<th>YoY change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ESA</td>
-<td>500 million</td>
-<td>litres</td>
-<td>+2.0%</td>
-</tr>
-<tr>
-<td>ANZ</td>
-<td>185 million</td>
-<td>litres</td>
-<td>−2.3%</td>
-</tr>
-<tr>
-<td>US</td>
-<td>46 million</td>
-<td>gallons</td>
-<td>−6.5%</td>
-</tr>
-</tbody>
-</table>
-<p>Comparing raw volumes would suggest ESA is ten times the size of the US, but the units differ (one gallon ≈ 3.785 litres). The year-on-year column tells the real story immediately: ESA is growing, ANZ is slightly down, and the US is declining fastest. That's where leadership's attention should go.</p>
-<hr />
-<h2>Why This Beat The Old Approach</h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Before</th>
-<th>With the Global Fleet KPI report</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Source of numbers</td>
-<td>Separate regional reports</td>
-<td>One report, one data model</td>
-</tr>
-<tr>
-<td>Definitions</td>
-<td>Implicit, different per region</td>
-<td>Documented per KPI, per region</td>
-</tr>
-<tr>
-<td>Comparisons</td>
-<td>Raw totals, often misleading</td>
-<td>Trends and year-on-year, like for like</td>
-</tr>
-<tr>
-<td>Trust</td>
-<td>"Which number is right?"</td>
-<td>Validation page reconciles to source</td>
-</tr>
-<tr>
-<td>Views</td>
-<td>Static, region by region</td>
-<td>Global summary + regional drill-down</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>Impact</h2>
-<p><strong>85% less report preparation:</strong> the monthly cross-region pack no longer had to be assembled by hand.</p>
-<p><strong>3× faster decisions:</strong> fleet managers got their answers from one trusted view.</p>
-<p><strong>3 regions, 1 report:</strong> ESA, ANZ and the US on a single page.</p>
-<p><strong>Definitions on the record:</strong> every KPI documented for every region.</p>
-<p><strong>Validated before it's used:</strong> reconciliation checks built into the report.</p>
-<p>The bigger shift was making differences visible instead of hiding them. Leaders could compare regions with confidence because they knew exactly what each number meant.</p>
-<h2>---</h2>
-<h1>Technical Deep Dive: How the Report Is Built</h1>
-<h2>1. Common data model</h2>
-<pre><code>fact_fleet_monthly
-  region            -- ESA / ANZ / US
-  month
-  volume            -- in native unit
-  volume_unit       -- 'litres' / 'gallons'
-  margin_local      -- contribution margin, local currency
-  currency
-  active_cards_1m
-  active_cards_3m
-  active_customers_1m
-  active_customers_3m
-  card_count
-  total_retail_volume
-</code></pre>
-<p>Carrying <code>volume_unit</code> and <code>currency</code> as columns (instead of silently converting) keeps the data honest and lets the report choose whether to show native or converted values.</p>
-<h2>2. Rolling 3-month actives</h2>
-<pre><code class="language-sql">SELECT region,
-       month,
-       COUNT(DISTINCT CASE WHEN txn_month = month THEN card_id END)          AS active_cards_1m,
-       COUNT(DISTINCT CASE WHEN txn_month BETWEEN ADD_MONTHS(month, -2)
-                                              AND month THEN card_id END)    AS active_cards_3m
-FROM   fleet_transactions
-GROUP  BY region, month;
-</code></pre>
-<p><em>(Simplified. In practice computed per region against a month calendar.)</em></p>
-<h2>3. Year-on-year and year-to-month</h2>
-<pre><code>YoY %  = (value this month − value same month last year) ÷ value same month last year
-YTM    = sum from January to the selected month, compared with the same months last year
-</code></pre>
-<h2>4. Optional normalisation</h2>
-<p>When a single global total is needed:</p>
-<pre><code>gallons → litres : × 3.785
-local currency   → USD at a fixed planning rate (so FX moves don't look like business moves)
-</code></pre>
-<h2>5. KPI validation</h2>
-<p>For each region and month:</p>
-<ul>
-<li>Volume, margin and active counts are compared with the region's own reported figures.</li>
-<li>Differences beyond a tolerance are flagged on the validation page.</li>
-<li>Data under review is labelled on the summary page (for example "ESA data is under review").</li>
-</ul>
-<h2>6. Report pages (Power BI)</h2>
-<ol>
-<li><strong>Global Fleet KPI Summary:</strong> volume, contribution margin and active customers by region, monthly, with YoY.</li>
-<li><strong>Global Fleet KPI by Region:</strong> regional drill-down.</li>
-<li><strong>Global Fleet Definitions:</strong> the KPI dictionary.</li>
-<li><strong>KPI Validation:</strong> reconciliation checks.</li>
-</ol>
-<hr />
-<p>Created by Agnivesh Das · bp Global Fleet · Illustrative values throughout. ESA, ANZ and US are bp fleet regions.</p></article>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">BP · Global Fleet Cards · KPI reporting</div>
+    <h1>Global Fleet KPI Report</h1>
+    <p class="hook">Three regions measuring “the same” fleet business three different ways, brought into one trusted, comparable view.</p>
+    <div class="byline"><b>Agnivesh Das</b> · Data Analyst · BP</div>
+    <div class="stack"><span>SQL</span><span>Power BI</span><span>Data modelling</span><span>KPI governance</span></div>
+    <div class="results">
+      <div><b>85%</b><span>less report preparation</span></div><div><b>3×</b><span>faster decisions</span></div><div><b>3 → 1</b><span>regions in one report</span></div>
+    </div>
+    <div class="results-note">Headline results as reported. Everything below the line uses illustrative data.</div>
+  </div>
+</header>
+<div class="banner"><div class="wrap"><b>Illustrative data.</b> Every chart, table and example on this page uses fictitious numbers to show how the work was done. No real BP data is shown.</div></div>
+
+<section id="problem">
+  <div class="wrap">
+    <p class="kicker"><span class="n">1</span>The problem</p>
+    <h2>One global business, three local scoreboards</h2>
+    <p class="sub">Every region reported the same KPIs in its own units, with its own definitions and time windows. Side by side, the numbers looked comparable but weren&#39;t.</p>
+    <div class="prob">
+      <div class="card"><div class="srcs"><div class="src"><b>ESA</b><em>Europe &amp; South Africa</em><dl><div><dt>Volume</dt><dd>litres</dd></div><div><dt>Margin</dt><dd>card contribution, local currency</dd></div><div><dt>Active cards</dt><dd>this month</dd></div></dl></div><div class="src"><b>ANZ</b><em>Australia &amp; New Zealand</em><dl><div><dt>Volume</dt><dd>litres</dd></div><div><dt>Margin</dt><dd>site waterfall + card margin − costs</dd></div><div><dt>Active cards</dt><dd>rolling 3 months</dd></div></dl></div><div class="src"><b>US</b><em>United States</em><dl><div><dt>Volume</dt><dd>gallons</dd></div><div><dt>Margin</dt><dd>site margin × card volume − offers</dd></div><div><dt>Active cards</dt><dd>this month</dd></div></dl></div></div><div class="nokey"><span>✕</span>No shared units, definitions or time windows</div></div>
+      <div class="points">
+        <div class="point"><b>Different units</b><p>Litres and cents per litre in two regions, gallons and cents per gallon in the third.</p></div><div class="point"><b>Different margins</b><p>Each region calculated fleet contribution its own way.</p></div><div class="point"><b>Different scope</b><p>Some counted only bp cards; others included partner and third-party networks.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach" class="soft">
+  <div class="wrap">
+    <p class="kicker"><span class="n">2</span>The approach</p>
+    <h2>A common model, definitions made explicit, validation built in</h2>
+    <p class="sub">Rather than force one artificial definition, every regional definition was documented and every comparison made like for like.</p>
+    <div class="steps">
+      <div class="step"><b>Ingest</b><p>Monthly extracts from each region&#39;s fleet system.</p></div><div class="step"><b>Standardise</b><p>One common data model, with unit and currency carried as columns.</p></div><div class="step"><b>Calculate</b><p>KPIs per region, each using that region&#39;s documented definition.</p></div><div class="step"><b>Compare</b><p>Cross-region views use trends and year-on-year change, not raw totals.</p></div><div class="step"><b>Validate</b><p>Reconcile every refresh against each region&#39;s own reporting.</p></div><div class="step"><b>Report</b><p>Global summary, regional drill-down, definitions and validation pages.</p></div>
+    </div>
+    <div class="card">
+      <h3>The KPI set</h3>
+      <div style="margin-top:14px"><div class="chips"><span>Fleet volume</span><span>Fleet contribution margin</span><span>Active cards (1 &amp; 3 month)</span><span>Active customers (1 &amp; 3 month)</span><span>Average volume per card</span><span>Fleet share of volume</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="role">
+  <div class="wrap">
+    <p class="kicker"><span class="n">3</span>My contribution</p>
+    <h2>What I owned, end to end</h2>
+    <p class="sub">Data Analyst. I owned the data behind the report end to end.</p>
+    <div class="contrib">
+      
+      <div class="card"><div class="lab">Data preparation</div><h3>Brought the regions together</h3><p>Pulled fleet card volume, margin, card and customer data from three regional systems.</p>
+        <div class="chips"><span>ESA</span><span>ANZ</span><span>US</span></div></div>
+      
+      <div class="card"><div class="lab">Transformation</div><h3>Made the definitions explicit</h3><p>Standardised each region into one model, documented every KPI per region and built the validation checks.</p>
+        <div class="chips"><span>Common data model</span><span>KPI dictionary</span><span>Reconciliation rules</span></div></div>
+      
+      <div class="card"><div class="lab">Reporting</div><h3>Built the Power BI report</h3><p>Global summary, by-region views, a definitions page and a KPI validation page.</p>
+        <div class="chips"><span>4 report pages</span><span>Monthly + YTM views</span></div></div>
+      
+    </div>
+  </div>
+</section>
+
+<section id="output" class="soft">
+  <div class="wrap">
+    <p class="kicker"><span class="n">4</span>The output</p>
+    <h2>Regions compared on what actually matters: direction of travel</h2>
+    <p class="sub">A recreation of the finished product with fictitious data. Hover or tap any bar or point for its value.</p>
+    <div class="dash">
+      <div class="dash-bar"><i></i><i></i><i></i><span>Global Fleet KPI Report</span><em>Illustrative data</em></div>
+      <div class="panels">
+        
+        <div class="card"><h3>Fleet volume, indexed</h3><p class="csub">Each region indexed to January = 100, so units don&#39;t matter</p><div class="legend"><span><i style="background:#2f5597"></i>ESA</span><span><i style="background:#00927f"></i>ANZ</span><span><i style="background:#b4541a"></i>US</span></div><div class="lc" style="--h:240px"><div class="plot"><div class="gl" style="bottom:0.00%"><span>92.0</span></div><div class="gl" style="bottom:33.33%"><span>96.0</span></div><div class="gl" style="bottom:66.67%"><span>100.0</span></div><div class="gl" style="bottom:100.00%"><span>104.0</span></div><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#2f5597" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.00,33.33 9.09,30.00 18.18,32.50 27.27,26.67 36.36,25.00 45.45,27.50 54.55,22.50 63.64,20.00 72.73,23.33 81.82,18.33 90.91,19.17 100.00,16.67"/><polyline fill="none" stroke="#00927f" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.00,33.33 9.09,36.67 18.18,34.17 27.27,40.00 36.36,42.50 45.45,40.83 54.55,45.00 63.64,46.67 72.73,44.17 81.82,49.17 90.91,50.83 100.00,52.50"/><polyline fill="none" stroke="#b4541a" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0.00,33.33 9.09,39.17 18.18,42.50 27.27,50.00 36.36,53.33 45.45,57.50 54.55,63.33 63.64,67.50 72.73,73.33 81.82,78.33 90.91,83.33 100.00,87.50"/></svg><i class="dot" style="left:0.00%;bottom:66.67%;background:#2f5597" data-tip="ESA, Jan: 100.0" tabindex="0"></i><i class="dot" style="left:9.09%;bottom:70.00%;background:#2f5597" data-tip="ESA, 1: 100.4" tabindex="0"></i><i class="dot" style="left:18.18%;bottom:67.50%;background:#2f5597" data-tip="ESA, Mar: 100.1" tabindex="0"></i><i class="dot" style="left:27.27%;bottom:73.33%;background:#2f5597" data-tip="ESA, 3: 100.8" tabindex="0"></i><i class="dot" style="left:36.36%;bottom:75.00%;background:#2f5597" data-tip="ESA, May: 101.0" tabindex="0"></i><i class="dot" style="left:45.45%;bottom:72.50%;background:#2f5597" data-tip="ESA, 5: 100.7" tabindex="0"></i><i class="dot" style="left:54.55%;bottom:77.50%;background:#2f5597" data-tip="ESA, Jul: 101.3" tabindex="0"></i><i class="dot" style="left:63.64%;bottom:80.00%;background:#2f5597" data-tip="ESA, 7: 101.6" tabindex="0"></i><i class="dot" style="left:72.73%;bottom:76.67%;background:#2f5597" data-tip="ESA, Sep: 101.2" tabindex="0"></i><i class="dot" style="left:81.82%;bottom:81.67%;background:#2f5597" data-tip="ESA, 9: 101.8" tabindex="0"></i><i class="dot" style="left:90.91%;bottom:80.83%;background:#2f5597" data-tip="ESA, 10: 101.7" tabindex="0"></i><i class="dot" style="left:100.00%;bottom:83.33%;background:#2f5597" data-tip="ESA, Dec: 102.0" tabindex="0"></i><i class="dot" style="left:0.00%;bottom:66.67%;background:#00927f" data-tip="ANZ, Jan: 100.0" tabindex="0"></i><i class="dot" style="left:9.09%;bottom:63.33%;background:#00927f" data-tip="ANZ, 1: 99.6" tabindex="0"></i><i class="dot" style="left:18.18%;bottom:65.83%;background:#00927f" data-tip="ANZ, Mar: 99.9" tabindex="0"></i><i class="dot" style="left:27.27%;bottom:60.00%;background:#00927f" data-tip="ANZ, 3: 99.2" tabindex="0"></i><i class="dot" style="left:36.36%;bottom:57.50%;background:#00927f" data-tip="ANZ, May: 98.9" tabindex="0"></i><i class="dot" style="left:45.45%;bottom:59.17%;background:#00927f" data-tip="ANZ, 5: 99.1" tabindex="0"></i><i class="dot" style="left:54.55%;bottom:55.00%;background:#00927f" data-tip="ANZ, Jul: 98.6" tabindex="0"></i><i class="dot" style="left:63.64%;bottom:53.33%;background:#00927f" data-tip="ANZ, 7: 98.4" tabindex="0"></i><i class="dot" style="left:72.73%;bottom:55.83%;background:#00927f" data-tip="ANZ, Sep: 98.7" tabindex="0"></i><i class="dot" style="left:81.82%;bottom:50.83%;background:#00927f" data-tip="ANZ, 9: 98.1" tabindex="0"></i><i class="dot" style="left:90.91%;bottom:49.17%;background:#00927f" data-tip="ANZ, 10: 97.9" tabindex="0"></i><i class="dot" style="left:100.00%;bottom:47.50%;background:#00927f" data-tip="ANZ, Dec: 97.7" tabindex="0"></i><i class="dot" style="left:0.00%;bottom:66.67%;background:#b4541a" data-tip="US, Jan: 100.0" tabindex="0"></i><i class="dot" style="left:9.09%;bottom:60.83%;background:#b4541a" data-tip="US, 1: 99.3" tabindex="0"></i><i class="dot" style="left:18.18%;bottom:57.50%;background:#b4541a" data-tip="US, Mar: 98.9" tabindex="0"></i><i class="dot" style="left:27.27%;bottom:50.00%;background:#b4541a" data-tip="US, 3: 98.0" tabindex="0"></i><i class="dot" style="left:36.36%;bottom:46.67%;background:#b4541a" data-tip="US, May: 97.6" tabindex="0"></i><i class="dot" style="left:45.45%;bottom:42.50%;background:#b4541a" data-tip="US, 5: 97.1" tabindex="0"></i><i class="dot" style="left:54.55%;bottom:36.67%;background:#b4541a" data-tip="US, Jul: 96.4" tabindex="0"></i><i class="dot" style="left:63.64%;bottom:32.50%;background:#b4541a" data-tip="US, 7: 95.9" tabindex="0"></i><i class="dot" style="left:72.73%;bottom:26.67%;background:#b4541a" data-tip="US, Sep: 95.2" tabindex="0"></i><i class="dot" style="left:81.82%;bottom:21.67%;background:#b4541a" data-tip="US, 9: 94.6" tabindex="0"></i><i class="dot" style="left:90.91%;bottom:16.67%;background:#b4541a" data-tip="US, 10: 94.0" tabindex="0"></i><i class="dot" style="left:100.00%;bottom:12.50%;background:#b4541a" data-tip="US, Dec: 93.5" tabindex="0"></i><span class="xl" style="left:0.00%">Jan</span><span class="xl" style="left:18.18%">Mar</span><span class="xl" style="left:36.36%">May</span><span class="xl" style="left:54.55%">Jul</span><span class="xl" style="left:72.73%">Sep</span><span class="xl" style="left:100.00%">Dec</span></div></div><details class="dt"><summary>View data</summary><table><thead><tr><th></th><th>ESA</th><th>ANZ</th><th>US</th></tr></thead><tbody><tr><td>Jan</td><td>100.0</td><td>100.0</td><td>100.0</td></tr><tr><td>1</td><td>100.4</td><td>99.6</td><td>99.3</td></tr><tr><td>Mar</td><td>100.1</td><td>99.9</td><td>98.9</td></tr><tr><td>3</td><td>100.8</td><td>99.2</td><td>98.0</td></tr><tr><td>May</td><td>101.0</td><td>98.9</td><td>97.6</td></tr><tr><td>5</td><td>100.7</td><td>99.1</td><td>97.1</td></tr><tr><td>Jul</td><td>101.3</td><td>98.6</td><td>96.4</td></tr><tr><td>7</td><td>101.6</td><td>98.4</td><td>95.9</td></tr><tr><td>Sep</td><td>101.2</td><td>98.7</td><td>95.2</td></tr><tr><td>9</td><td>101.8</td><td>98.1</td><td>94.6</td></tr><tr><td>10</td><td>101.7</td><td>97.9</td><td>94.0</td></tr><tr><td>Dec</td><td>102.0</td><td>97.7</td><td>93.5</td></tr></tbody></table></details></div>
+        
+        <div class="card"><h3>Fleet volume, year on year</h3><p class="csub">% change vs. same month last year</p><div class="db"><div class="db-row"><span class="hb-l">ESA</span><span class="db-t"><i style="left:50%;width:13.38%;background:#2f5597" data-tip="ESA: +2.0%" tabindex="0"></i></span><span class="hb-v">+2.0%</span></div><div class="db-row"><span class="hb-l">ANZ</span><span class="db-t"><i style="right:50%;width:15.38%;background:#b4541a" data-tip="ANZ: −2.3%" tabindex="0"></i></span><span class="hb-v">−2.3%</span></div><div class="db-row"><span class="hb-l">US</span><span class="db-t"><i style="right:50%;width:43.48%;background:#b4541a" data-tip="US: −6.5%" tabindex="0"></i></span><span class="hb-v">−6.5%</span></div></div><details class="dt"><summary>View data</summary><table><thead><tr><th>Item</th><th>Change</th></tr></thead><tbody><tr><td>ESA</td><td>+2.0%</td></tr><tr><td>ANZ</td><td>−2.3%</td></tr><tr><td>US</td><td>−6.5%</td></tr></tbody></table></details></div>
+        
+        <div class="card wide"><h3>KPI validation page</h3><p class="csub">Report vs. each region&#39;s own figures, this month</p><div class="tbl"><table><thead><tr><th>Region</th><th>Report</th><th>Regional source</th><th>Difference</th><th>Status</th></tr></thead><tbody><tr><td>ESA</td><td>500.0M litres</td><td>499.6M litres</td><td>0.08%</td><td><span class="st ok">✓ Reconciled</span></td></tr><tr><td>ANZ</td><td>185.0M litres</td><td>185.0M litres</td><td>0.00%</td><td><span class="st ok">✓ Reconciled</span></td></tr><tr><td>US</td><td>46.0M gallons</td><td>46.3M gallons</td><td>0.65%</td><td><span class="st warn">! Under review</span></td></tr></tbody></table></div></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <p class="kicker"><span class="n">5</span>Impact</p>
+    <h2>What changed</h2>
+    <p class="sub">Reported results, and how the way the business worked changed.</p>
+    <div class="impact">
+      <div class="icard"><div class="m">85%</div><div class="l">less report preparation</div><div class="d">The monthly cross-region pack no longer had to be built by hand.</div></div><div class="icard"><div class="m">3×</div><div class="l">faster decisions</div><div class="d">Fleet managers got answers from one trusted view.</div></div><div class="icard"><div class="m">3 → 1</div><div class="l">regions, one report</div><div class="d">ESA, ANZ and the US on a single page.</div></div><div class="icard"><div class="m">100%</div><div class="l">of KPIs defined</div><div class="d">Every KPI documented for every region.</div></div>
+    </div>
+    <div class="ba">
+      <div class="ba-row"><span></span><span>Before</span><span></span><span>After</span></div>
+      
+      <div class="ba-row"><span class="k">Source of numbers</span><span class="b">Separate regional reports</span><span class="ar">→</span><span class="a">One report, one data model</span></div>
+      
+      <div class="ba-row"><span class="k">Definitions</span><span class="b">Implicit, different per region</span><span class="ar">→</span><span class="a">Documented per KPI, per region</span></div>
+      
+      <div class="ba-row"><span class="k">Comparisons</span><span class="b">Raw totals, often misleading</span><span class="ar">→</span><span class="a">Trends and year-on-year, like for like</span></div>
+      
+      <div class="ba-row"><span class="k">Trust</span><span class="b">“Which number is right?”</span><span class="ar">→</span><span class="a">Validation page reconciles to source</span></div>
+      
+    </div>
+    <p class="closing">Making the differences visible, instead of hiding them, is what let leaders compare regions with confidence.</p>
+  </div>
+</section>
+
+<div class="more">
+  <div class="wrap">
+    <div><h2>Want the full story?</h2><p>The written case study covers the constraints, a worked example and the trade-offs.</p></div>
+    <div class="btns">
+      <a class="btn primary" href="story.html">Read the case study</a>
+      
+      <a class="btn" href="https://agnidas31.github.io/Agnivesh-Das/#work">Back to portfolio</a>
+    </div>
+  </div>
 </div>
 <div class="foot">
   <div class="wrap">
     <span>Agnivesh Das · <a href="https://agnidas31.github.io/Agnivesh-Das/">Portfolio</a> · <a href="https://www.linkedin.com/in/agnivesh-das/">LinkedIn</a></span>
-    <span>Illustrative figures; confidential details omitted.</span>
+    <span>Illustrative figures throughout; confidential details omitted.</span>
   </div>
 </div>
+<script>
+  (function () {
+    var bar = document.getElementById('progress');
+    addEventListener('scroll', function () {
+      var h = document.documentElement; bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true });
+    var tip = document.getElementById('tip');
+    function show(el) {
+      tip.textContent = el.getAttribute('data-tip');
+      var r = el.getBoundingClientRect(), w = tip.offsetWidth;
+      var x = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8);
+      var y = r.top - tip.offsetHeight - 8; if (y < 8) y = r.bottom + 8;
+      tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.style.opacity = 1;
+    }
+    function hide() { tip.style.opacity = 0; }
+    document.querySelectorAll('[data-tip]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { show(el); });
+      el.addEventListener('focus', function () { show(el); });
+      el.addEventListener('click', function () { show(el); });
+      el.addEventListener('mouseleave', hide); el.addEventListener('blur', hide);
+    });
+    addEventListener('scroll', hide, { passive: true });
+  })();
+</script>
 </body>
 </html>

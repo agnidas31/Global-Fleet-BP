@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Global Fleet KPI Report · Agnivesh Das</title>
+<meta name="description" content="How three regions that measured &#34;the same&#34; fleet business in three different ways were brought into one trusted, comparable view.">
+<meta property="og:title" content="The Global Fleet KPI Report · Agnivesh Das">
+<meta property="og:description" content="How three regions that measured &#34;the same&#34; fleet business in three different ways were brought into one trusted, comparable view.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17202b; --muted: #556070; --faint: #8a94a2; --rule: #dde3ea;
+    --bg: #ffffff; --bg-soft: #f7f8fa; --accent: #b4541a; --accent-soft: #fbede3; --navy: #172340;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 17px; line-height: 1.7;
+  }
+  a { color: var(--accent); }
+  .top { border-bottom: 1px solid var(--rule); background: #fff; position: sticky; top: 0; z-index: 5; }
+  .top .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; gap: 12px; }
+  .top a { text-decoration: none; font-weight: 600; font-size: 14px; }
+  .brand { font-family: "Source Serif 4", Georgia, serif; font-size: 18px; color: var(--ink); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  .tabs { display: flex; gap: 8px; margin: 28px 0 0; flex-wrap: wrap; }
+  .tabs a { padding: 6px 14px; border-radius: 99px; border: 1px solid var(--rule); color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; }
+  .tabs a.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+  article { padding: 18px 0 60px; }
+  article > p:first-child { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: 1.1px; text-transform: uppercase; margin-bottom: 0; }
+  h1 { color: var(--navy); font-family: "Source Serif 4", Georgia, serif; font-size: clamp(32px, 5vw, 46px); line-height: 1.12; margin: 8px 0 16px; }
+  h1 + p { font-size: 20px; color: var(--ink); }
+  h2 { color: var(--navy); font-family: "Source Serif 4", Georgia, serif; font-size: 28px; margin: 48px 0 6px; padding-top: 10px; }
+  h3 { font-size: 19px; margin: 10px 0 14px; color: var(--muted); font-weight: 600; }
+  h4 { font-size: 17px; margin: 22px 0 6px; }
+  p, li { color: #2b3542; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 40px 0 8px; }
+  blockquote {
+    margin: 22px 0; padding: 14px 18px; background: var(--accent-soft); border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+  blockquote p { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; display: block; overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { background: var(--bg-soft); font-weight: 600; white-space: nowrap; }
+  code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 14px; background: var(--bg-soft); padding: 2px 5px; border-radius: 4px; }
+  pre { background: #0f1a22; color: #e6edf3; padding: 16px 18px; border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.55; }
+  pre code { background: none; padding: 0; color: inherit; }
+  .foot { border-top: 1px solid var(--rule); padding: 26px 0 40px; color: var(--faint); font-size: 14px; }
+  .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="https://agnidas31.github.io/Agnivesh-Das/">Agnivesh Das</a>
+    <a href="https://agnidas31.github.io/Agnivesh-Das/#work">← All work</a>
+  </div>
+</div>
+<div class="wrap">
+  <div class="tabs">
+    <a href="index.html">At a glance</a>
+    <a href="story.html" class="on">The story</a>
+    
+  </div>
+  <article><p>Case Study · Global Fleet Cards · bp</p>
+<h1>The Global Fleet KPI Report</h1>
+<p>How three regions that measured "the same" fleet business in three different ways were brought into one trusted, comparable view.</p>
+<p>Agnivesh Das · Data Analyst · bp</p>
+<blockquote>
+<p><strong>Note:</strong> the structure, regions and definitions reflect how the report worked. All values are illustrative, not real production figures.</p>
+</blockquote>
+<hr />
+<h2>My Role</h2>
+<p>As Data Analyst, I owned the data behind the report end to end:</p>
+<ul>
+<li><strong>Data preparation.</strong> Brought in fleet card volume, margin, card and customer data from three regional systems (ESA, ANZ and the US).</li>
+<li><strong>Cleaning and transformation.</strong> Standardised each region's data into one model, documented each KPI's definition per region, and built the KPI validation checks.</li>
+<li><strong>Reporting.</strong> Built the Power BI report: global summary, by-region views, a definitions page, and a KPI validation page.</li>
+</ul>
+<hr />
+<h2>The Problem</h2>
+<h3>One global business, three local scoreboards</h3>
+<p>bp's fleet card business serves companies whose drivers fill up using a bp fleet card. It operates in several regions, each with its own systems, history and way of reporting.</p>
+<p>Leadership wanted to answer simple questions:</p>
+<ul>
+<li>How is fleet volume trending in each region?</li>
+<li>How much margin is the business contributing?</li>
+<li>How many active cards and customers do we have, and is that growing?</li>
+</ul>
+<p>But every region produced its own numbers in its own format. Comparing them meant pulling separate reports and hoping they meant the same thing.</p>
+<hr />
+<h2>The Constraint Nobody Was Naming</h2>
+<h3>The same KPI meant different things in each region</h3>
+<p>The hard part wasn't building charts. It was that the regions didn't agree on what the numbers meant:</p>
+<p><strong>1. Different units.</strong> ANZ and ESA measure volume in <strong>litres</strong> and margin in <strong>cents per litre</strong>. The US uses <strong>gallons</strong> and <strong>cents per gallon</strong>.</p>
+<p><strong>2. Different definitions of margin.</strong> In ANZ, fleet contribution comes from the site margin waterfall plus card margin, minus site and card costs. In ESA, it's card contribution margin in local currency. In the US, it's average site margin applied to card volume, minus the cost of card offers.</p>
+<p><strong>3. Different definitions of volume.</strong> Some regions count only bp-branded cards. Others include partner networks and third-party cards, split into "issued and supplied", "supplied not issued" and "issued not supplied".</p>
+<p><strong>4. Different time windows.</strong> "Active cards" could mean active this month, or active over a rolling three months.</p>
+<p>Putting these numbers side by side without addressing this would have produced a report that <em>looked</em> comparable but wasn't.</p>
+<hr />
+<h2>The Fix</h2>
+<h3>A common model, regional definitions made explicit, and validation built in</h3>
+<p>Rather than forcing every region into one artificial definition, the report:</p>
+<ol>
+<li><strong>Standardised the structure.</strong> Every region's data was mapped into the same model: region, month, volume, contribution margin, active cards, active customers.</li>
+<li><strong>Kept regional definitions, but made them visible.</strong> A definitions page documents exactly what each KPI means in each region: unit, scope and calculation.</li>
+<li><strong>Compared like with like.</strong> Cross-region comparisons use <strong>trends and year-on-year change</strong>, which are meaningful even when units differ, rather than raw totals.</li>
+<li><strong>Validated every refresh.</strong> A KPI validation page checks each region's figures against source before the report is trusted.</li>
+</ol>
+<h3>KPI set</h3>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Definition (summary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fleet volume</strong></td>
+<td>Fuel sold to fleet customers on bp and eligible third-party cards (litres or gallons by region)</td>
+</tr>
+<tr>
+<td><strong>Fleet contribution margin</strong></td>
+<td>Region-specific margin definition, in $ and cents per litre/gallon</td>
+</tr>
+<tr>
+<td><strong>Active cards</strong></td>
+<td>Cards that transacted in the month, and on a rolling 3-month basis</td>
+</tr>
+<tr>
+<td><strong>Active customers</strong></td>
+<td>Customers that transacted in the month, and on a rolling 3-month basis</td>
+</tr>
+<tr>
+<td><strong>Average volume per card</strong></td>
+<td>Total volume ÷ number of fleet cards</td>
+</tr>
+<tr>
+<td><strong>Fleet share of volume</strong></td>
+<td>Fleet volume ÷ total retail volume</td>
+</tr>
+</tbody>
+</table>
+<h3>How it works</h3>
+<ol>
+<li><strong>Ingest:</strong> Monthly extracts from each region's fleet system.</li>
+<li><strong>Standardise:</strong> Map to one common data model, with region, unit and currency carried as attributes.</li>
+<li><strong>Calculate:</strong> Compute KPIs per region using that region's documented definition.</li>
+<li><strong>Validate:</strong> Reconcile against each region's own reporting.</li>
+<li><strong>Report:</strong> Global summary, by-region detail, monthly and year-to-month comparisons.</li>
+</ol>
+<hr />
+<h2>Worked Example</h2>
+<h3>Why year-on-year matters more than totals</h3>
+<blockquote>
+<p><strong>Illustrative values only.</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Monthly volume</th>
+<th>Unit</th>
+<th>YoY change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESA</td>
+<td>500 million</td>
+<td>litres</td>
+<td>+2.0%</td>
+</tr>
+<tr>
+<td>ANZ</td>
+<td>185 million</td>
+<td>litres</td>
+<td>−2.3%</td>
+</tr>
+<tr>
+<td>US</td>
+<td>46 million</td>
+<td>gallons</td>
+<td>−6.5%</td>
+</tr>
+</tbody>
+</table>
+<p>Comparing raw volumes would suggest ESA is ten times the size of the US, but the units differ (one gallon ≈ 3.785 litres). The year-on-year column tells the real story immediately: ESA is growing, ANZ is slightly down, and the US is declining fastest. That's where leadership's attention should go.</p>
+<hr />
+<h2>Why This Beat The Old Approach</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Before</th>
+<th>With the Global Fleet KPI report</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source of numbers</td>
+<td>Separate regional reports</td>
+<td>One report, one data model</td>
+</tr>
+<tr>
+<td>Definitions</td>
+<td>Implicit, different per region</td>
+<td>Documented per KPI, per region</td>
+</tr>
+<tr>
+<td>Comparisons</td>
+<td>Raw totals, often misleading</td>
+<td>Trends and year-on-year, like for like</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>"Which number is right?"</td>
+<td>Validation page reconciles to source</td>
+</tr>
+<tr>
+<td>Views</td>
+<td>Static, region by region</td>
+<td>Global summary + regional drill-down</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Impact</h2>
+<p><strong>85% less report preparation:</strong> the monthly cross-region pack no longer had to be assembled by hand.</p>
+<p><strong>3× faster decisions:</strong> fleet managers got their answers from one trusted view.</p>
+<p><strong>3 regions, 1 report:</strong> ESA, ANZ and the US on a single page.</p>
+<p><strong>Definitions on the record:</strong> every KPI documented for every region.</p>
+<p><strong>Validated before it's used:</strong> reconciliation checks built into the report.</p>
+<p>The bigger shift was making differences visible instead of hiding them. Leaders could compare regions with confidence because they knew exactly what each number meant.</p>
+<h2>---</h2>
+<h1>Technical Deep Dive: How the Report Is Built</h1>
+<h2>1. Common data model</h2>
+<pre><code>fact_fleet_monthly
+  region            -- ESA / ANZ / US
+  month
+  volume            -- in native unit
+  volume_unit       -- 'litres' / 'gallons'
+  margin_local      -- contribution margin, local currency
+  currency
+  active_cards_1m
+  active_cards_3m
+  active_customers_1m
+  active_customers_3m
+  card_count
+  total_retail_volume
+</code></pre>
+<p>Carrying <code>volume_unit</code> and <code>currency</code> as columns (instead of silently converting) keeps the data honest and lets the report choose whether to show native or converted values.</p>
+<h2>2. Rolling 3-month actives</h2>
+<pre><code class="language-sql">SELECT region,
+       month,
+       COUNT(DISTINCT CASE WHEN txn_month = month THEN card_id END)          AS active_cards_1m,
+       COUNT(DISTINCT CASE WHEN txn_month BETWEEN ADD_MONTHS(month, -2)
+                                              AND month THEN card_id END)    AS active_cards_3m
+FROM   fleet_transactions
+GROUP  BY region, month;
+</code></pre>
+<p><em>(Simplified. In practice computed per region against a month calendar.)</em></p>
+<h2>3. Year-on-year and year-to-month</h2>
+<pre><code>YoY %  = (value this month − value same month last year) ÷ value same month last year
+YTM    = sum from January to the selected month, compared with the same months last year
+</code></pre>
+<h2>4. Optional normalisation</h2>
+<p>When a single global total is needed:</p>
+<pre><code>gallons → litres : × 3.785
+local currency   → USD at a fixed planning rate (so FX moves don't look like business moves)
+</code></pre>
+<h2>5. KPI validation</h2>
+<p>For each region and month:</p>
+<ul>
+<li>Volume, margin and active counts are compared with the region's own reported figures.</li>
+<li>Differences beyond a tolerance are flagged on the validation page.</li>
+<li>Data under review is labelled on the summary page (for example "ESA data is under review").</li>
+</ul>
+<h2>6. Report pages (Power BI)</h2>
+<ol>
+<li><strong>Global Fleet KPI Summary:</strong> volume, contribution margin and active customers by region, monthly, with YoY.</li>
+<li><strong>Global Fleet KPI by Region:</strong> regional drill-down.</li>
+<li><strong>Global Fleet Definitions:</strong> the KPI dictionary.</li>
+<li><strong>KPI Validation:</strong> reconciliation checks.</li>
+</ol>
+<hr />
+<p>Created by Agnivesh Das · bp Global Fleet · Illustrative values throughout. ESA, ANZ and US are bp fleet regions.</p></article>
+</div>
+<div class="foot">
+  <div class="wrap">
+    <span>Agnivesh Das · <a href="https://agnidas31.github.io/Agnivesh-Das/">Portfolio</a> · <a href="https://www.linkedin.com/in/agnivesh-das/">LinkedIn</a></span>
+    <span>Illustrative figures; confidential details omitted.</span>
+  </div>
+</div>
+</body>
+</html>
