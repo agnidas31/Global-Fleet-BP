@@ -34,6 +34,8 @@ Leadership wanted to answer simple questions:
 
 But every region produced its own numbers in its own format. Comparing them meant pulling separate reports and hoping they meant the same thing.
 
+The report's purpose was to unify that fragmented operational data, monitor asset utilisation and transportation demand, and guide high-value commercial and safety decisions across global operations.
+
 ---
 
 ## The Constraint Nobody Was Naming
@@ -121,8 +123,6 @@ Comparing raw volumes would suggest ESA is ten times the size of the US, but the
 **3× faster decisions:** fleet managers got their answers from one trusted view.
 
 **3 regions, 1 report:** ESA, ANZ and the US on a single page.
-
-**Definitions on the record:** every KPI documented for every region.
 
 **Validated before it's used:** reconciliation checks built into the report.
 
